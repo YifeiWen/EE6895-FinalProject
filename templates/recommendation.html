@@ -1,0 +1,376 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="data:,">
+
+<!-- jquery -->
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+<link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    .uploadBtn{
+        margin-top:20px;
+    }
+    .myPic{
+        width:130px;
+        height:130px;
+        margin:10px;
+    }
+    .anss{
+        font-weight:bold;
+        color:white;
+        font-size:30px;
+    }
+    .ansss{
+        font-weight:bold;
+        color:white;
+        font-size:30px;
+    }
+    .anssss{
+        font-weight:bold;
+        color:white;
+        font-size:30px;
+    }
+    body{
+        background-color:#666666;
+    }
+    .upper{
+        background-color:#444444;
+        position:relative;
+        top:20px;
+    }
+    .title{
+        color:white;
+        font-weight:lighter;
+        font-size:50px;
+    }
+    .subTitle{
+        color:white;
+        font-weight:lighter;
+        font-size:20px;
+    }
+    .des{
+        color:white;
+        font-weight:lighter;
+    }
+    .dess{
+        color:white;
+        font-weight:lighter;
+    }
+    .desss{
+        color:white;
+        font-weight:lighter;
+    }
+    .firstTitle{
+        font-weight:bold;
+        color:white;
+        font-size:30px;
+    }
+    .secondTitle{
+        color:white;
+        font-size:20px;
+    }
+    .recommendResult{
+        display: -webkit-flex;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+    }
+    .firstJob{
+        width:500px;
+        height:150px;
+        background-color:gray;
+        margin:10px;
+        display:flex;
+        justify-content:flex-start;
+    }
+    .secondJob{
+        width:500px;
+        height:150px;
+        background-color:gray;
+        margin:10px;
+        display:flex;
+        justify-content:flex-start;
+    }
+    .thirdJob{
+        width:500px;
+        height:150px;
+        background-color:gray;
+        margin:10px;
+        display:flex;
+        justify-content:flex-start;
+    }
+    .recommendJobTitle{
+        color:white;
+        font-size:20px;
+        text-decoration:underline;
+        margin:10px;
+    }
+
+    .recommendLocation{
+        color:white;
+        margin:10px;
+    }
+    .FirstDetailJobTitle{
+        font-weight:bold;
+        font-size:20px;
+    }
+    .SecondDetailJobTitle{
+        font-weight:bold;
+        font-size:20px;
+    }
+    .ThirdDetailJobTitle{
+        font-weight:bold;
+        font-size:20px;
+    }
+    .line{
+        height:1px;
+        background-color:gray;
+    }
+    .simiBtn{
+       margin:10px;
+    }
+    .SimiFirst{
+        width:450px;
+        height:110px;
+        background-color:#DDDDDD;
+        margin:10px;
+    }
+    .SimiSecond{
+        width:450px;
+        height:110px;
+        background-color:#DDDDDD;
+        margin:10px;
+    }
+    .SimiThird{
+        width:450px;
+        height:110px;
+        background-color:#DDDDDD;
+        margin:10px;
+    }
+    .siTitle{
+        text-decoration:underline;
+    }
+</style>
+
+
+<script>
+
+        function postData(){
+
+            var formData = new FormData();
+            formData.append("photo",$("#photo")[0].files[0]);
+            formData.append("service",'App.Passion.UploadFile');
+            //formData.append("token",token);
+            console.log($("#photo")[0].files)
+            console.log("-----")
+            console.log(formData.get("photo"))
+            $.ajax({
+                url:'pdf_upload', /*接口域名地址*/
+                type:'post',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success:function(res){
+                    $('.firstContent').append('<div class="recommendJobTitle">'+res[0]+'</div>')
+                    $('.secondContent').append('<div class="recommendJobTitle">'+res[1]+'</div>')
+                    $('.thirdContent').append('<div class="recommendJobTitle">'+res[2]+'</div>')
+                    $('.firstContent').append('<div class="recommendLocation">'+res[6]+'</div>')
+                    $('.secondContent').append('<div class="recommendLocation">'+res[7]+'</div>')
+                    $('.thirdContent').append('<div class="recommendLocation">'+res[8]+'</div>')
+                    $('.firstContent').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#FirstDescription"><i class="bi bi-book"></i> Actively Recruiting</button>')
+                    $('.secondContent').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#SecondDescription"><i class="bi bi-book"></i> Actively Recruiting</button>')
+                    $('.thirdContent').append('<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ThirdDescription"><i class="bi bi-book"></i> Actively Recruiting</button>')
+                    $('.FirstDetailJobDescription').append('<div><span style="font-weight:bold; color:gray">Description:</span><br>'+res[3]+'</div>')
+                    $('.SecondDetailJobDescription').append('<div><span style="font-weight:bold; color:gray">Description:</span><br>'+res[4]+'</div>')
+                    $('.ThirdDetailJobDescription').append('<div><span style="font-weight:bold; color:gray">Description:</span><br>'+res[5]+'</div>')
+                    $('.FirstDetailJobTitle').append('<div>'+res[0]+'</div>')
+                    $('.SecondDetailJobTitle').append('<div>'+res[1]+'</div>')
+                    $('.ThirdDetailJobTitle').append('<div>'+res[2]+'</div>')
+                    $('.FirstDetailJobCompany').append('<div><span style="font-weight:bold; color:gray">Company:</span><br>'+res[9]+'</div>')
+                    $('.SecondDetailJobCompany').append('<div><span style="font-weight:bold; color:gray">Company:</span><br>'+res[10]+'</div>')
+                    $('.ThirdDetailJobCompany').append('<div><span style="font-weight:bold; color:gray">Company:</span><br>'+res[11]+'</div>')
+                    $('.FirstSkill').append('<div><span style="font-weight:bold; color:gray">Skills:</span><br>'+res[12]+'</div>')
+                    $('.SecondSkill').append('<div><span style="font-weight:bold; color:gray">Skills:</span><br>'+res[13]+'</div>')
+                    $('.ThirdSkill').append('<div><span style="font-weight:bold; color:gray">Skills:</span><br>'+res[14]+'</div>')
+                    $('.firstContent').append('<button class="simiBtn btn btn-primary btn-sm" data-toggle="modal" data-target="#FirstSimilar">SimilarJob</button>')
+                    $('.secondContent').append('<button class="simiBtn btn btn-primary btn-sm" data-toggle="modal" data-target="#SecondSimilar">SimilarJob</button>')
+                    $('.thirdContent').append('<button class="simiBtn btn btn-primary btn-sm" data-toggle="modal" data-target="#ThirdSimilar">SimilarJob</button>')
+                    $('.SimiTitle').append('<div class="SimiFirst"><div class="siTitle">'+res[15]+'</div>'+res[18]+'<div><button class="simiBtn btn btn-success btn-sm">Now Hiring</button></div></div>')
+                    $('.SimiTitle').append('<div class="SimiSecond"><div class="siTitle">'+res[16]+'</div>'+res[19]+'<div><button class="simiBtn btn btn-success btn-sm">Now Hiring</button></div></div>')
+                    $('.SimiTitle').append('<div class="SimiThird"><div class="siTitle">'+res[17]+'</div>'+res[20]+'<div><button class="simiBtn btn btn-success btn-sm">Now Hiring</button></div></div>')
+
+                    console.log('-------');
+                    console.log(res);
+            }
+            })
+        }
+        //let data = {{data|tojson}}
+        //console.log(data)
+        //$(document).ready(function(){
+
+        //})
+    </script>
+<body>
+<div class="jumbotron upper">
+    <h1 class="title">Welcome to our job recommendation system</h1>
+    <p class="subTitle">You can upload your resume here:</p>
+    <input type="file" name="photo" id="photo" value="Chose" placeholder="Chose">
+    <div class="uploadBtn">
+        <p><a class="btn btn-primary btn-sm" href="#" onclick="postData();" value="upload" role="button">Upload</a></p>
+    </div>
+</div>
+
+
+<div class="recommendResult">
+    <div class="recommendTitle">
+
+        <span class="firstTitle">Recommended for you</span>
+        <br>
+        <span class="secondTitle">Based on your resume analysis</span>
+    </div>
+    <div class="firstJob">
+        <a href="https://www.linkedin.com/jobs/search/?currentJobId=3060550330&geoId=90000031&keywords=full%20stack%20java%20engineer&location=Dallas-Fort%20Worth%20Metroplex">
+            <img src="./static/pic/second.png" alt="..." class="myPic" >
+        </a>
+        <div class="firstContent">
+        </div>
+        <div class="simiBtnFirst">
+        </div>
+    </div>
+    <div class="secondJob">
+        <a href="https://www.linkedin.com/jobs/search/?currentJobId=3060090390&geoId=105080838&keywords=front%20end%20developer%20(javascript)&location=New%20York%2C%20United%20States">
+        <img src="./static/pic/first.png" alt="..." class="myPic">
+        </a>
+        <div class="secondContent">
+        </div>
+        <div class="simiBtnSecond">
+        </div>
+    </div>
+    <div class="thirdJob">
+        <a href="https://www.linkedin.com/jobs/search/?currentJobId=2788354673&geoId=106619589&keywords=software%20engineer%20(python)&location=Bellevue%2C%20Washington%2C%20United%20States">
+        <img src="./static/pic/third.png" alt="..." class="myPic">
+        </a>
+        <div class="thirdContent">
+        </div>
+        <div class="simiBtnThird">
+        </div>
+    </div>
+</div>
+
+<!--Similar Window-->
+<div class="modal fade" id="FirstSimilar" tabindex="-1" role="dialog" aria-labelledby="DescriptionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="FirstSimilarTitle">Similar Jobs</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="SimiTitle"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--Pop Window-->
+<div class="modal fade" id="FirstDescription" tabindex="-1" role="dialog" aria-labelledby="DescriptionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="FirstDescriptionTitle">Detail Job Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+
+                <div class="FirstDetailJobTitle"></div>
+                <div class="FirstDetailJobCompany"></div>
+                <div class="line"></div>
+                <div class="FirstSkill"></div>
+                <div class="line"></div>
+                <div class="FirstDetailJobDescription"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="SecondDescription" tabindex="-1" role="dialog" aria-labelledby="DescriptionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="SecondDescriptionTitle">Detail Job Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="SecondDetailJobTitle"></div>
+                <div class="SecondDetailJobCompany"></div>
+                <div class="line"></div>
+                <div class="SecondSkill"></div>
+                <div class="line"></div>
+                <div class="SecondDetailJobDescription"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="ThirdDescription" tabindex="-1" role="dialog" aria-labelledby="DescriptionTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ThirdDescriptionTitle">Detail Job Description</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="ThirdDetailJobTitle"></div>
+                <div class="ThirdDetailJobCompany"></div>
+                <div class="line"></div>
+                <div class="ThirdSkill"></div>
+                <div class="line"></div>
+                <div class="ThirdDetailJobDescription"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- ----------------------------------------------------------------------------------------------------- -->
+
+</body>
+
+
+{% endblock %}
+

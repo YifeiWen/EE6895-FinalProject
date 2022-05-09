@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" crossorigin="anonymous">
+<script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+<script src="https://malsup.github.io/jquery.form.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<style>
+    body{
+        background-color:#666666;
+    }
+    .title{
+        color:white;
+        font-weight:bold;
+        font-size:70px;
+        position:relative;
+        top:90px;
+        z-index:99999
+    }
+    .subTitle{
+        color:white;
+        font-weight:lighter;
+        font-size:20px;
+        position:relative;
+        top:90px;
+        z-index:99999
+    }
+    .bgPic{
+        height:400px;
+        width:550px;
+        position:relative;
+        left:630px;
+        top:-70px;
+    }
+    .myBtn{
+        position:relative;
+        left:-130px;
+    }
+</style>
+<head>
+
+</head>
+<body>
+    <div class="title">
+        We are so happy to <br>recommend jobs for you
+    </div>
+    <div class="subTitle">
+        You can upload your resume on the recommendation page.
+    </div>
+    <img class ="bgPic" src="./static/pic/newBg.png">
+    <button type="button" class="btn btn-primary myBtn"  onclick="window.location.href='/recommendation'" >Get Recommendation</button>
+</body>
+<script>
+
+</script>
+
+
+{% endblock %}
